@@ -1,0 +1,2467 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    素材库
+{% endblock %}
+
+{% block stylesheet %}
+    <link href="bower_components/select2/dist/css/select2.min.css" rel="stylesheet"/>
+    <link href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"
+          rel="stylesheet"/>
+    <link href="assets/toastr/toastr.min.css" rel="stylesheet"/>
+    <link href="assets/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="bower_components/lightbox2/dist/css/lightbox.min.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                素材库
+                <i>男频设置</i>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="javascript:void(0)"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">男频设置</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            {#<h2 class="page-header">男频设置</h2>#}
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Custom Tabs -->
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab_1" data-toggle="tab">信息流书库</a></li>
+                            <li><a href="#tab_2" data-toggle="tab">标题库</a></li>
+                            <li><a href="#tab_3" data-toggle="tab">单大图库</a></li>
+                            <li><a href="#tab_4" data-toggle="tab">单小图库</a></li>
+                            <li><a href="#tab_5" data-toggle="tab">三小图库</a></li>
+                            <li><a href="#tab_6" data-toggle="tab">落地页图库</a></li>
+                            <li><a href="#tab_7" data-toggle="tab">超大图库</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_1">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box">
+                                            <div class="box-header with-border">
+                                                <button type="button" class="btn btn-success book-add" id="bookAdd">
+                                                    添加
+                                                </button>
+                                            </div>
+
+                                            <div class="box-body">
+                                                <table id="bookTable"
+                                                       class="table table-bordered table-hover table-striped"
+                                                       style="width: 100%">
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <!-- /.tab-pane -->
+
+                            <div class="tab-pane" id="tab_2">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box">
+                                            <div class="box-header with-border">
+                                                <button type="button" class="btn btn-success title-add" id="titleAdd">
+                                                    添加
+                                                </button>
+                                            </div>
+
+                                            <div class="box-body">
+                                                <table id="titleTable"
+                                                       class="table table-bordered table-hover table-striped"
+                                                       style="width: 100%">
+
+                                                </table>
+                                            </div>
+
+                                            <div class="box-footer">
+                                                <button type="button" class="btn btn-warning" id="deleteTitles">
+                                                    删除
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+
+                            <div class="tab-pane" id="tab_3">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box">
+                                            <div class="box-header with-border">
+                                                <button type="button" class="btn btn-success single-big-add"
+                                                        id="singleBigAdd">
+                                                    添加
+                                                </button>
+                                            </div>
+
+                                            <div class="box-body">
+                                                <table id="singleBigTable"
+                                                       class="table table-bordered table-hover table-striped"
+                                                       style="width: 100%">
+
+                                                </table>
+                                            </div>
+
+                                            <div class="box-footer">
+                                                <button type="button" class="btn btn-warning" id="delSingleBigs">
+                                                    删除
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+
+                            <div class="tab-pane" id="tab_4">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box">
+                                            <div class="box-header with-border">
+                                                <button type="button" class="btn btn-success single-small-add"
+                                                        id="singleSmallAdd">
+                                                    添加
+                                                </button>
+                                            </div>
+
+                                            <div class="box-body">
+                                                <table id="singleSmallTable"
+                                                       class="table table-bordered table-hover table-striped"
+                                                       style="width: 100%">
+
+                                                </table>
+                                            </div>
+
+                                            <div class="box-footer">
+                                                <button type="button" class="btn btn-warning" id="delSingleSmalls">
+                                                    删除
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+
+                            <div class="tab-pane" id="tab_5">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box">
+                                            <div class="box-header with-border">
+                                                <button type="button" class="btn btn-success three-small-add"
+                                                        id="threeSmallAdd">
+                                                    添加
+                                                </button>
+                                            </div>
+
+                                            <div class="box-body">
+                                                <table id="threeSmallTable"
+                                                       class="table table-bordered table-hover table-striped"
+                                                       style="width: 100%">
+
+                                                </table>
+                                            </div>
+
+                                            <div class="box-footer">
+                                                <button type="button" class="btn btn-warning" id="delThreeSmall">
+                                                    删除
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+
+                            <div class="tab-pane" id="tab_6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box">
+                                            <div class="box-header with-border">
+                                                <button type="button" class="btn btn-success landing-add"
+                                                        id="landingAdd">
+                                                    添加
+                                                </button>
+                                            </div>
+
+                                            <div class="box-body">
+                                                <table id="landingTable"
+                                                       class="table table-bordered table-hover table-striped"
+                                                       style="width: 100%">
+
+                                                </table>
+                                            </div>
+
+                                            <div class="box-footer">
+                                                <button type="button" class="btn btn-warning" id="delLanding">
+                                                    删除
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+
+                            <div class="tab-pane" id="tab_7">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box">
+                                            <div class="box-header with-border">
+                                                <button type="button" class="btn btn-success single-big-x-add"
+                                                        id="singleBigXAdd">
+                                                    添加
+                                                </button>
+                                            </div>
+
+                                            <div class="box-body">
+                                                <table id="singleBigXTable"
+                                                       class="table table-bordered table-hover table-striped"
+                                                       style="width: 100%">
+
+                                                </table>
+                                            </div>
+
+                                            <div class="box-footer">
+                                                <button type="button" class="btn btn-warning" id="delSingleBigXs">
+                                                    删除
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+                        </div>
+                        <!-- /.tab-content -->
+                    </div>
+                    <!-- nav-tabs-custom -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+    {# 添加/修改信息流书库Modal #}
+    <div class="modal fade in" id="modal-addBook" tabindex="-1" role="dialog"
+         aria-labelledby="myBookModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="addBookModalTitle"></h4>
+                </div>
+                <form class="form-horizontal" action="saveBook" method="post" id="addBookForm">
+                    <input type="hidden" name="type" value="1">
+                    <input type="hidden" name="id" id="flow_book_id">
+
+                    <div class="modal-body">
+                        <div id="selectApp">
+                            <div class="form-group">
+                                <label for="book_id" class="col-sm-2 control-label">选择图书</label>
+
+                                <div class="col-sm-10">
+                                    <select class="form-control select-book" id="book_id" name="book_id"
+                                            style="width: 100%">
+                                        <option value="0">请选择图书</option>
+                                        {% for book in books %}
+                                            <option value="{{ book.id }}">{{ book.title }}</option>
+                                        {% endfor %}
+                                    </select>
+
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recommend_title" class="col-sm-2 control-label">推荐标题</label>
+
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="recommend_title" name="recommend_title"
+                                          placeholder="推荐标题"
+                                          rows="3"></textarea>
+
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-success">保存</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- ./modal -->
+
+    {# 添加/修改信息流标题Modal #}
+    <div class="modal fade in" id="modal-addTitle" tabindex="-1" role="dialog"
+         aria-labelledby="myTitleModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="addTitleModalTitle"></h4>
+                </div>
+                <form class="form-horizontal" action="saveTitle" method="post" id="addTitleForm">
+                    <input type="hidden" name="type" value="1">
+                    <input type="hidden" name="id" id="flow_title_id">
+
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="title" class="col-sm-2 control-label">标题</label>
+
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="title" name="title" placeholder="标题"
+                                          rows="3"></textarea>
+
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-success">保存</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- ./modal -->
+
+    {# 添加/修改单大图Modal #}
+    <div class="modal fade in" id="modal-addSingle" tabindex="-1" role="dialog"
+         aria-labelledby="mySingleModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="addSingleModalTitle"></h4>
+                </div>
+                <form class="form-horizontal" action="saveSingle" method="post" id="addSingleForm"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="type" value="1">
+                    <input type="hidden" name="id" id="flow_single_id">
+                    <input type="hidden" name="pic_type" id="pic_type">
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-sm-12" id="singlePreview" style="max-height: 200px; margin: 0 auto;">
+
+                            </div>
+                            <div class="col-sm-12">
+                                <input type="file" name="inputFile" id="inputFile">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-success">保存</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- ./modal -->
+
+    {# 添加/修改单小图Modal #}
+    <div class="modal fade in" id="modal-SingleSmall" tabindex="-1" role="dialog"
+         aria-labelledby="mySingleSmallModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="SingleSmallModalTitle"></h4>
+                </div>
+                <form class="form-horizontal" action="saveSingle" method="post" id="SingleSmallForm"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="type" value="1">
+                    <input type="hidden" name="id" id="flow_single_small_id">
+                    <input type="hidden" name="pic_type" id="single_small_type">
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-sm-12" id="singleSmallPreview" style="max-height: 200px; margin: 0 auto;">
+
+                            </div>
+                            <div class="col-sm-12">
+                                <input type="file" name="inputFile" id="singleSmallFile">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-success">保存</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- ./modal -->
+
+    {# 添加三小图Modal #}
+    <div class="modal fade in" id="modal-threeSmallAdd" tabindex="-1" role="dialog"
+         aria-labelledby="myThreeSmallAddModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="threeSmallModalAddTitle">添加</h4>
+                </div>
+                <form class="form-horizontal" action="saveMore" method="post" id="threeSmallAddForm"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="type" value="1">
+                    {#<input type="hidden" name="id" id="flow_threeSmall_id">#}
+                    <input type="hidden" name="pic_type" id="threeSmall_type" value="4">
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <input type="file" name="inputFile1" id="threeSmallFile1">
+                                <span class="help-block"></span>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="file" name="inputFile2" id="threeSmallFile2">
+                                <span class="help-block"></span>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="file" name="inputFile3" id="threeSmallFile3">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-success">保存</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- ./modal -->
+
+    {# 修改三小图Modal #}
+    <div class="modal fade in" id="modal-threeSmallEdit" tabindex="-1" role="dialog"
+         aria-labelledby="myThreeSmallEditModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="threeSmallModalEditTitle">修改</h4>
+                </div>
+                <form class="form-horizontal" action="editSaveMore" method="post" id="threeSmallEditForm"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="type" value="1">
+                    <input type="hidden" name="id" id="flow_threeSmall_id">
+                    <input type="hidden" name="pic_type" id="threeSmall_type" value="4">
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <input type="file" name="inputFile1" id="threeSmallEditFile1">
+                                <span class="help-block"></span>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="file" name="inputFile2" id="threeSmallEditFile2">
+                                <span class="help-block"></span>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="file" name="inputFile3" id="threeSmallEditFile3">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-success">保存</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- ./modal -->
+
+    {# 添加/修改落地页Modal #}
+    <div class="modal fade in" id="modal-landing" tabindex="-1" role="dialog"
+         aria-labelledby="myLandingModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="landingModalTitle"></h4>
+                </div>
+                <form class="form-horizontal" action="saveSingle" method="post" id="landingForm"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="type" value="1">
+                    <input type="hidden" name="id" id="flow_landing_id">
+                    <input type="hidden" name="pic_type" id="landing_type">
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-sm-12" id="singleSmallPreview" style="max-height: 200px; margin: 0 auto;">
+
+                            </div>
+                            <div class="col-sm-12">
+                                <input type="file" name="inputFile" id="landingFile" onchange="FirstImg()">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-success">保存</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- ./modal -->
+
+    {# 添加/修改单超大图Modal #}
+    <div class="modal fade in" id="modal-addSingleX" tabindex="-1" role="dialog"
+         aria-labelledby="mySingleXModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="addSingleXModalTitle"></h4>
+                </div>
+                <form class="form-horizontal" action="saveSingle" method="post" id="addSingleXForm"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="type" value="1">
+                    <input type="hidden" name="id" id="flow_single_x_id">
+                    <input type="hidden" name="pic_type" id="singleBigX" value="5">
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-sm-12" id="singleXPreview" style="max-height: 200px; margin: 0 auto;">
+
+                            </div>
+                            <div class="col-sm-12">
+                                <input type="file" name="inputFile" id="singleBigXFile">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-success">保存</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- ./modal -->
+{% endblock %}
+
+{% block pageScript %}
+    {# select 2 #}
+    <script type="text/javascript" src="bower_components/select2/dist/js/select2.min.js"></script>
+
+    {# jQuery validaate #}
+    <script type="text/javascript" src="assets/jquery-validation/jquery.validate.js"></script>
+
+    {# jQuery Form #}
+    <script type="text/javascript" src="assets/jquery-form/jquery.form.js"></script>
+
+    {# jQuery DataTable #}
+    <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+    {# toastr #}
+    <script type="text/javascript" src="assets/toastr/toastr.min.js"></script>
+
+    {# jQuery confirm #}
+    <script type="text/javascript" src="assets/jquery-confirm/jquery-confirm.min.js"></script>
+
+    {# lightbox2 #}
+    <script type="text/javascript" src="bower_components/lightbox2/dist/js/lightbox.min.js"></script>
+
+    <script type="text/javascript">
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-bottom-center",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        $(function () {
+            $.fn.modal.Constructor.prototype.enforceFocus = function () {
+
+            };
+
+            $('.select-book').select2();
+
+            // 信息流书库
+            var bookTable = $('#bookTable').DataTable({
+                "autoWidth": false,
+                "processing": true,
+                "serverSide": true,
+                "stateSave": true,
+                /*"ajax": {
+                    "url": "getConfig",
+                    "dataStr": "data",
+                },*/
+                "ajax": function (data, callback) {
+                    var columns = data.columns;
+                    var rawCols = [];
+                    var order = [];
+
+                    $.each(columns, function (i, n) {
+                        rawCols.push(n.data);
+                    });
+
+                    $.each(data.order, function (i, n) {
+                        var item = [];
+                        item.push(rawCols[n.column], n.dir);
+                        order.push(item)
+                    });
+
+                    var postData = {
+                        'draw': data.draw,
+                        'start': data.start,
+                        'length': data.length,
+                        'search': data.search.value,
+                        'type': 1,
+                        'order': order
+                    };
+
+                    $.post('getBookList', postData, function (data) {
+                        callback(data);
+                    });
+                },
+                "order": [[0, "desc"]],
+                "columnDefs": [
+                    {
+                        "targets": [0, 3, 4, 5],
+                        searchable: false
+                    },
+                    {
+                        "targets": [3, 4, 5],
+                        orderable: false
+                    },
+                    {
+                        "targets": [0, 3, 5],
+                        className: "text-center"
+                    }
+                ],
+                "columns": [
+                    {
+                        title: "ID",
+                        data: 'id',
+                        width: '20px'
+                    },
+                    {
+                        title: "图书ID",
+                        data: 'book_id',
+                        width: '60px'
+                    },
+                    {
+                        title: "书名",
+                        data: 'book_title',
+                        width: '180px',
+                    },
+                    {
+                        title: "频道",
+                        data: 'type',
+                        width: '60px',
+                        render: function (type) {
+                            return type == 1 ? "男频" : "女频";
+                        }
+                    },
+                    {
+                        title: "标题",
+                        data: 'recommend_title'
+                    },
+                    {
+                        title: "操作",
+                        data: 'id',
+                        width: '200px',
+                        render: function (id) {
+                            var str = '';
+                            str += '<button type="button" class="btn btn-default book-edit" data-id="' + id + '"><i class="fa fa-edit"></i> 修改</button> ' + '&nbsp;&nbsp;&nbsp;&nbsp;';
+                            str += '<button type="button" class="btn btn-default book-delete" data-id="' + id + '"><i class="fa fa-trash-o"></i> 删除</button>';
+                            return str;
+                        }
+                    }
+                ],
+                "initComplete": function () {
+                    $('#bookTable_filter label input[type="search"]').attr('placeholder', '图书ID或名称');
+                },
+                "language": {
+                    "sProcessing": "处理中...",
+                    "sLengthMenu": "显示 _MENU_ 项结果",
+                    "sZeroRecords": "没有匹配结果",
+                    "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix": "",
+                    "sSearch": "搜索:",
+                    "sUrl": "",
+                    "sEmptyTable": "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands": ",",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "上页",
+                        "sNext": "下页",
+                        "sLast": "末页"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+                    }
+                }
+            });
+
+            // 添加信息流书库
+            $('#bookAdd').click(function () {
+                $('#modal-addBook').modal('show');
+
+                $('#flow_book_id').val(0);
+                $('#book_id').val('0').trigger("change");
+                $('#recommend_title').val('');
+                $('#addBookModalTitle').html('添加书库');
+            });
+
+            $('#book_id').change(function () {
+                $(this).valid();
+            });
+
+            // 添加信息流书库
+            $('#addBookForm').validate({
+                ignore: "",
+                submitHandler: function (form) {
+                    jQuery(form).ajaxSubmit({
+                        type: "POST",
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                $('#modal-addBook').modal('hide');
+                                toastr["success"]("操作成功！");
+                                bookTable.ajax.reload();
+                            } else {
+                                toastr["error"](data.message, "哎呀，出错了");
+                            }
+                        }
+                    });
+                },
+                rules: {
+                    book_id: {
+                        required: true,
+                        min: 1,
+                        remote: {
+                            url: "checkBookId",
+                            type: "post",
+                            data: {
+                                book_id: function () {
+                                    return $('#book_id').val();
+                                },
+                                id: function () {
+                                    return $('#flow_book_id').val();
+                                }
+                            }
+                        }
+                    },
+                    recommend_title: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    book_id: {
+                        required: "请选择图书",
+                        min: '请选择图书',
+                        remote: '请选择其它图书',
+                    },
+                    recommend_title: {
+                        required: "这是必填字段",
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    error.appendTo(element.next("span"));
+                },
+                highlight: function (element) {
+                    $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
+                    $('#help-block').html("");
+                },
+                unhighlight: function (element) {
+                    $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
+                    $('#help-block').html("");
+                }
+            });
+
+            // 删除信息流书库
+            $('#bookTable').on('click', '.book-delete', function () {
+                var id = $(this).data('id');
+                $.confirm({
+                    title: '删除确认!',
+                    content: '确认删除这条信息？',
+                    buttons: {
+                        cancel: {
+                            text: '取消',
+                            action: function () {
+                                // close
+                            }
+                        },
+                        confirm: {
+                            text: '确认',
+                            btnClass: 'btn-success',
+                            action: function () {
+                                $.get('delBook', {id: id}, function (data) {
+                                    if (data.code === 200) {
+                                        toastr["success"]("操作成功！");
+                                        bookTable.ajax.reload();
+                                    } else {
+                                        toastr["error"](data.message, "哎呀，出错了");
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+
+            // 修改信息流书库
+            $('#bookTable').on('click', '.book-edit', function () {
+                var id = $(this).data('id');
+
+                $.get('getBook', {id: id}, function (data) {
+                    // console.log(data);
+                    if (data.code === 200) {
+                        var d = data.data;
+                        var book_id = d.book_id;
+                        var recommend_title = d.recommend_title;
+
+                        $('#modal-addBook').modal('show');
+                        $('#flow_book_id').val(id);
+                        $('#book_id').val(book_id).trigger("change");
+                        $('#recommend_title').val(recommend_title);
+                        $('#addBookModalTitle').html('修改书库');
+                    } else {
+                        toastr["error"](data.message, "哎呀，出错了");
+                    }
+                });
+            });
+
+            // 信息流标题库
+            var titleTable = $('#titleTable').DataTable({
+                "autoWidth": false,
+                "processing": true,
+                "serverSide": true,
+                /*"ajax": {
+                    "url": "getConfig",
+                    "dataStr": "data",
+                },*/
+                "ajax": function (data, callback) {
+                    var columns = data.columns;
+                    var rawCols = [];
+                    var order = [];
+
+                    $.each(columns, function (i, n) {
+                        rawCols.push(n.data);
+                    });
+
+                    $.each(data.order, function (i, n) {
+                        var item = [];
+                        item.push(rawCols[n.column], n.dir);
+                        order.push(item)
+                    });
+
+                    var postData = {
+                        'draw': data.draw,
+                        'start': data.start,
+                        'length': data.length,
+                        'search': data.search.value,
+                        'type': 1,
+                        'order': order
+                    };
+
+                    $.post('getTitleList', postData, function (data) {
+                        callback(data);
+                    });
+                },
+                "order": [[1, "desc"]],
+                "columnDefs": [
+                    {
+                        "targets": [0, 1, 3],
+                        searchable: false
+                    },
+                    {
+                        "targets": [0, 3],
+                        orderable: false
+                    },
+                    {
+                        "targets": [0, 1, 3],
+                        className: "text-center"
+                    }
+                ],
+                "fnDrawCallback": function () {
+                    $("#all_checked").prop("checked", false);
+                },
+                "columns": [
+                    {
+                        title: '全选  <input type="checkbox" class="" id="all_checked"/>',
+                        data: 'id',
+                        width: '60px',
+                        render: function (id) {
+                            return "<input type='checkbox' name='titleId' class='' value='" + id + "'>";
+                        }
+                    },
+                    {
+                        title: "ID",
+                        data: 'id',
+                        width: '20px'
+                    },
+                    {
+                        title: "标题",
+                        data: 'title'
+                    },
+                    {
+                        title: "操作",
+                        data: 'id',
+                        width: '200px',
+                        render: function (id) {
+                            var str = '';
+                            str += '<button type="button" class="btn btn-default title-edit" data-id="' + id + '"><i class="fa fa-edit"></i> 修改</button> ' + '&nbsp;&nbsp;&nbsp;&nbsp;';
+                            str += '<button type="button" class="btn btn-default title-delete" data-id="' + id + '"><i class="fa fa-trash-o"></i> 删除</button>';
+                            return str;
+                        }
+                    }
+                ],
+                "initComplete": function () {
+                    $('#titleTable_filter label input[type="search"]').attr('placeholder', '标题');
+                },
+                "language": {
+                    "sProcessing": "处理中...",
+                    "sLengthMenu": "显示 _MENU_ 项结果",
+                    "sZeroRecords": "没有匹配结果",
+                    "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix": "",
+                    "sSearch": "搜索:",
+                    "sUrl": "",
+                    "sEmptyTable": "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands": ",",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "上页",
+                        "sNext": "下页",
+                        "sLast": "末页"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+                    }
+                }
+            });
+
+            // 添加标题
+            $('#titleAdd').click(function () {
+                $('#modal-addTitle').modal('show');
+                $('#flow_title_id').val(0);
+                $('#title').val('');
+                $('#addTitleModalTitle').html('添加标题');
+            });
+
+            // 添加标题验证
+            $('#addTitleForm').validate({
+                ignore: "",
+                submitHandler: function (form) {
+                    jQuery(form).ajaxSubmit({
+                        type: "POST",
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                $('#modal-addTitle').modal('hide');
+                                toastr["success"]("操作成功！");
+                                titleTable.ajax.reload();
+                            } else {
+                                toastr["error"](data.message, "哎呀，出错了");
+                            }
+                        }
+                    });
+                },
+                rules: {
+                    title: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    title: {
+                        required: "这是必填字段",
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    error.appendTo(element.next("span"));
+                },
+                highlight: function (element) {
+                    $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
+                    $('#help-block').html("");
+                },
+                unhighlight: function (element) {
+                    $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
+                    $('#help-block').html("");
+                }
+            });
+
+            // 修改标题
+            $('#titleTable').on('click', '.title-edit', function () {
+                var id = $(this).data('id');
+
+                $.get('getTitle', {id: id}, function (data) {
+                    // console.log(data);
+                    if (data.code === 200) {
+                        var d = data.data;
+                        var title = d.title;
+
+                        $('#modal-addTitle').modal('show');
+                        $('#flow_title_id').val(id);
+                        $('#title').val(title);
+                        $('#addTitleModalTitle').html('添加标题');
+                    } else {
+                        toastr["error"](data.message, "哎呀，出错了");
+                    }
+                });
+            });
+
+            // 删除单个标题
+            $('#titleTable').on('click', '.title-delete', function () {
+                var id = $(this).data('id');
+                $.confirm({
+                    title: '删除确认!',
+                    content: '确认删除这条信息？',
+                    buttons: {
+                        cancel: {
+                            text: '取消',
+                            action: function () {
+                                // close
+                            }
+                        },
+                        confirm: {
+                            text: '确认',
+                            btnClass: 'btn-success',
+                            action: function () {
+                                $.get('delTitle', {id: id}, function (data) {
+                                    if (data.code === 200) {
+                                        toastr["success"]("操作成功！");
+                                        titleTable.ajax.reload();
+                                    } else {
+                                        toastr["error"](data.message, "哎呀，出错了");
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+
+            // 标题页全选
+            $('#all_checked').click(function () {
+                $('[name=titleId]:checkbox').prop('checked', this.checked);
+            });
+
+            // 标题页删除多个
+            $('#deleteTitles').click(function () {
+                var a = [];
+                $('input[name="titleId"]:checked').each(function () {
+                    a.push($(this).val());
+                });
+
+                if (a.length < 1) {
+                    toastr["warning"]("请选择...");
+                } else {
+                    $.confirm({
+                        title: '删除确认!',
+                        content: '确认删除这些标题？',
+                        buttons: {
+                            cancel: {
+                                text: '取消',
+                                action: function () {
+                                    // close
+                                }
+                            },
+                            confirm: {
+                                text: '确认',
+                                btnClass: 'btn-success',
+                                action: function () {
+                                    $.get('delTitles', {ids: a}, function (data) {
+                                        if (data.code === 200) {
+                                            toastr["success"]("操作成功！");
+                                            titleTable.ajax.reload();
+                                        } else {
+                                            toastr["error"](data.message, "哎呀，出错了");
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+
+            // 单大图
+            var singleBigTable = $('#singleBigTable').DataTable({
+                "searching": false,
+                "autoWidth": false,
+                "processing": true,
+                "serverSide": true,
+                /*"ajax": {
+                    "url": "getConfig",
+                    "dataStr": "data",
+                },*/
+                "ajax": function (data, callback) {
+                    var columns = data.columns;
+                    var rawCols = [];
+                    var order = [];
+
+                    $.each(columns, function (i, n) {
+                        rawCols.push(n.data);
+                    });
+
+                    $.each(data.order, function (i, n) {
+                        var item = [];
+                        item.push(rawCols[n.column], n.dir);
+                        order.push(item)
+                    });
+
+                    var postData = {
+                        'draw': data.draw,
+                        'start': data.start,
+                        'length': data.length,
+                        'type': 1,
+                        'pic_type': 1,
+                        'order': order
+                    };
+
+                    $.post('getPicList', postData, function (data) {
+                        callback(data);
+                    });
+                },
+                "order": [[1, "desc"]],
+                "columnDefs": [
+                    {
+                        "targets": [0, 2, 3],
+                        orderable: false
+                    },
+                    {
+                        "targets": [0, 1, 2, 3],
+                        className: "text-center"
+                    }
+                ],
+                "fnDrawCallback": function () {
+                    $("#all_checked_big").prop("checked", false);
+                },
+                "columns": [
+                    {
+                        title: '全选  <input type="checkbox" class="" id="all_checked_big"/>',
+                        data: 'id',
+                        width: '60px',
+                        render: function (id) {
+                            return "<input type='checkbox' name='picBigId' class='' value='" + id + "'>";
+                        }
+                    },
+                    {
+                        title: "ID",
+                        data: 'id',
+                        width: '20px'
+                    },
+                    {
+                        title: "图片",
+                        data: 'pic1_url',
+                        height: '100px',
+                        render: function (data, type, row) {
+                            var str = '<a href="' + data + '" data-lightbox="image-' + row.id + '" data-title=""><img src="' + data + '" alt="" style="max-width: 100px; max-height: 100px;"></a>';
+                            return str;
+                        }
+                    },
+                    {
+                        title: "操作",
+                        data: 'id',
+                        width: '200px',
+                        render: function (id) {
+                            var str = '';
+                            str += '<button type="button" class="btn btn-default image-edit" data-id="' + id + '"><i class="fa fa-edit"></i> 修改</button> ' + '&nbsp;&nbsp;&nbsp;&nbsp;';
+                            str += '<button type="button" class="btn btn-default image-delete" data-id="' + id + '"><i class="fa fa-trash-o"></i> 删除</button>';
+                            return str;
+                        }
+                    }
+                ],
+                "language": {
+                    "sProcessing": "处理中...",
+                    "sLengthMenu": "显示 _MENU_ 项结果",
+                    "sZeroRecords": "没有匹配结果",
+                    "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix": "",
+                    "sSearch": "搜索:",
+                    "sUrl": "",
+                    "sEmptyTable": "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands": ",",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "上页",
+                        "sNext": "下页",
+                        "sLast": "末页"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+                    }
+                }
+            });
+
+            // 添加单大图
+            $('#singleBigAdd').click(function () {
+                $('#modal-addSingle').modal('show');
+                $('#flow_single_id').val(0);
+                $('#pic_type').val(1);
+                $('#inputFile').val('');
+                $('#addSingleModalTitle').html('添加');
+            });
+
+            // 单大图添加验证
+            $('#addSingleForm').validate({
+                ignore: "",
+                submitHandler: function (form) {
+                    jQuery(form).ajaxSubmit({
+                        type: "POST",
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                $('#modal-addSingle').modal('hide');
+                                toastr["success"]("操作成功！");
+                                singleBigTable.ajax.reload();
+                            } else {
+                                toastr["error"](data.message, "哎呀，出错了");
+                            }
+                        }
+                    });
+                },
+                rules: {
+                    inputFile: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    inputFile: {
+                        required: "这是必填字段",
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    error.appendTo(element.next("span"));
+                },
+                highlight: function (element) {
+                    $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
+                    $('#help-block').html("");
+                },
+                unhighlight: function (element) {
+                    $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
+                    $('#help-block').html("");
+                }
+            });
+
+            // 修改单大图
+            $('#singleBigTable').on('click', '.image-edit', function () {
+                var id = $(this).data('id');
+
+                $('#modal-addSingle').modal('show');
+                $('#flow_single_id').val(id);
+                $('#pic_type').val(1);
+                $('#inputFile').val('');
+                $('#addSingleModalTitle').html('修改');
+            });
+
+            // 删除单大图
+            $('#singleBigTable').on('click', '.image-delete', function () {
+                var id = $(this).data('id');
+                $.confirm({
+                    title: '删除确认!',
+                    content: '确认删除这条信息？',
+                    buttons: {
+                        cancel: {
+                            text: '取消',
+                            action: function () {
+                                // close
+                            }
+                        },
+                        confirm: {
+                            text: '确认',
+                            btnClass: 'btn-success',
+                            action: function () {
+                                $.get('delImage', {id: id}, function (data) {
+                                    if (data.code === 200) {
+                                        toastr["success"]("操作成功！");
+                                        singleBigTable.ajax.reload();
+                                    } else {
+                                        toastr["error"](data.message, "哎呀，出错了");
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+
+            // 单大图库全选
+            $('#all_checked_big').click(function () {
+                $('[name=picBigId]:checkbox').prop('checked', this.checked);
+            });
+
+            // 删除多个图
+            $('#delSingleBigs').click(function () {
+                var a = [];
+                $('input[name="picBigId"]:checked').each(function () {
+                    a.push($(this).val());
+                });
+
+                if (a.length < 1) {
+                    toastr["warning"]("请选择...");
+                } else {
+                    $.confirm({
+                        title: '删除确认!',
+                        content: '确认删除这些图片？',
+                        buttons: {
+                            cancel: {
+                                text: '取消',
+                                action: function () {
+                                    // close
+                                }
+                            },
+                            confirm: {
+                                text: '确认',
+                                btnClass: 'btn-success',
+                                action: function () {
+                                    $.get('delImages', {ids: a}, function (data) {
+                                        if (data.code === 200) {
+                                            toastr["success"]("操作成功！");
+                                            singleBigTable.ajax.reload();
+                                        } else {
+                                            toastr["error"](data.message, "哎呀，出错了");
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+
+            // 单小图
+            var singleSmallTable = $('#singleSmallTable').DataTable({
+                "searching": false,
+                "autoWidth": false,
+                "processing": true,
+                "serverSide": true,
+                /*"ajax": {
+                    "url": "getConfig",
+                    "dataStr": "data",
+                },*/
+                "ajax": function (data, callback) {
+                    var columns = data.columns;
+                    var rawCols = [];
+                    var order = [];
+
+                    $.each(columns, function (i, n) {
+                        rawCols.push(n.data);
+                    });
+
+                    $.each(data.order, function (i, n) {
+                        var item = [];
+                        item.push(rawCols[n.column], n.dir);
+                        order.push(item)
+                    });
+
+                    var postData = {
+                        'draw': data.draw,
+                        'start': data.start,
+                        'length': data.length,
+                        'type': 1,
+                        'pic_type': 2,
+                        'order': order
+                    };
+
+                    $.post('getPicList', postData, function (data) {
+                        callback(data);
+                    });
+                },
+                "order": [[1, "desc"]],
+                "columnDefs": [
+                    {
+                        "targets": [0, 2, 3],
+                        orderable: false
+                    },
+                    {
+                        "targets": [0, 1, 2, 3],
+                        className: "text-center"
+                    }
+                ],
+                "fnDrawCallback": function () {
+                    $("#all_checked_small").prop("checked", false);
+                },
+                "columns": [
+                    {
+                        title: '全选  <input type="checkbox" class="" id="all_checked_small"/>',
+                        data: 'id',
+                        width: '60px',
+                        render: function (id) {
+                            return "<input type='checkbox' name='picSmallId' class='' value='" + id + "'>";
+                        }
+                    },
+                    {
+                        title: "ID",
+                        data: 'id',
+                        width: '20px'
+                    },
+                    {
+                        title: "图片",
+                        data: 'pic1_url',
+                        height: '100px',
+                        render: function (data, type, row) {
+                            var str = '<a href="' + data + '" data-lightbox="image-' + row.id + '" data-title=""><img src="' + data + '" alt="" style="max-width: 100px; max-height: 100px;"></a>';
+                            return str;
+                        }
+                    },
+                    {
+                        title: "操作",
+                        data: 'id',
+                        width: '200px',
+                        render: function (id) {
+                            var str = '';
+                            str += '<button type="button" class="btn btn-default image-edit" data-id="' + id + '"><i class="fa fa-edit"></i> 修改</button> ' + '&nbsp;&nbsp;&nbsp;&nbsp;';
+                            str += '<button type="button" class="btn btn-default image-delete" data-id="' + id + '"><i class="fa fa-trash-o"></i> 删除</button>';
+                            return str;
+                        }
+                    }
+                ],
+                "language": {
+                    "sProcessing": "处理中...",
+                    "sLengthMenu": "显示 _MENU_ 项结果",
+                    "sZeroRecords": "没有匹配结果",
+                    "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix": "",
+                    "sSearch": "搜索:",
+                    "sUrl": "",
+                    "sEmptyTable": "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands": ",",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "上页",
+                        "sNext": "下页",
+                        "sLast": "末页"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+                    }
+                }
+            });
+
+            // 添加单小图
+            $('#singleSmallAdd').click(function () {
+                $('#modal-SingleSmall').modal('show');
+                $('#flow_single_small_id').val(0);
+                $('#single_small_type').val(2);
+                $('#singleSmallFile').val('');
+                $('#SingleSmallModalTitle').html('添加');
+            });
+
+            // 修改单小图
+            $('#singleSmallTable').on('click', '.image-edit', function () {
+                var id = $(this).data('id');
+
+                $('#modal-SingleSmall').modal('show');
+                $('#flow_single_small_id').val(id);
+                $('#single_small_type').val(2);
+                $('#singleSmallFile').val('');
+                $('#SingleSmallModalTitle').html('修改');
+            });
+
+            // 单小图添加验证
+            $('#SingleSmallForm').validate({
+                ignore: "",
+                submitHandler: function (form) {
+                    jQuery(form).ajaxSubmit({
+                        type: "POST",
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                $('#modal-SingleSmall').modal('hide');
+                                toastr["success"]("操作成功！");
+                                singleSmallTable.ajax.reload();
+                            } else {
+                                toastr["error"](data.message, "哎呀，出错了");
+                            }
+                        }
+                    });
+                },
+                rules: {
+                    inputFile: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    inputFile: {
+                        required: "这是必填字段",
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    error.appendTo(element.next("span"));
+                },
+                highlight: function (element) {
+                    $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
+                    $('#help-block').html("");
+                },
+                unhighlight: function (element) {
+                    $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
+                    $('#help-block').html("");
+                }
+            });
+
+            // 删除单小图
+            $('#singleSmallTable').on('click', '.image-delete', function () {
+                var id = $(this).data('id');
+                $.confirm({
+                    title: '删除确认!',
+                    content: '确认删除这条信息？',
+                    buttons: {
+                        cancel: {
+                            text: '取消',
+                            action: function () {
+                                // close
+                            }
+                        },
+                        confirm: {
+                            text: '确认',
+                            btnClass: 'btn-success',
+                            action: function () {
+                                $.get('delImage', {id: id}, function (data) {
+                                    if (data.code === 200) {
+                                        toastr["success"]("操作成功！");
+                                        singleSmallTable.ajax.reload();
+                                    } else {
+                                        toastr["error"](data.message, "哎呀，出错了");
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+
+            // 单小图全选
+            $('#all_checked_small').click(function () {
+                $('[name=picSmallId]:checkbox').prop('checked', this.checked);
+            });
+
+            // 删除多个小图
+            $('#delSingleSmalls').click(function () {
+                var a = [];
+                $('input[name="picSmallId"]:checked').each(function () {
+                    a.push($(this).val());
+                });
+
+                if (a.length < 1) {
+                    toastr["warning"]("请选择...");
+                } else {
+                    $.confirm({
+                        title: '删除确认!',
+                        content: '确认删除这些图片？',
+                        buttons: {
+                            cancel: {
+                                text: '取消',
+                                action: function () {
+                                    // close
+                                }
+                            },
+                            confirm: {
+                                text: '确认',
+                                btnClass: 'btn-success',
+                                action: function () {
+                                    $.get('delImages', {ids: a}, function (data) {
+                                        if (data.code === 200) {
+                                            toastr["success"]("操作成功！");
+                                            singleSmallTable.ajax.reload();
+                                        } else {
+                                            toastr["error"](data.message, "哎呀，出错了");
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+
+            // 三小图
+            var threeSmallTable = $('#threeSmallTable').DataTable({
+                "searching": false,
+                "autoWidth": false,
+                "processing": true,
+                "serverSide": true,
+                /*"ajax": {
+                    "url": "getConfig",
+                    "dataStr": "data",
+                },*/
+                "ajax": function (data, callback) {
+                    var columns = data.columns;
+                    var rawCols = [];
+                    var order = [];
+
+                    $.each(columns, function (i, n) {
+                        rawCols.push(n.data);
+                    });
+
+                    $.each(data.order, function (i, n) {
+                        var item = [];
+                        item.push(rawCols[n.column], n.dir);
+                        order.push(item)
+                    });
+
+                    var postData = {
+                        'draw': data.draw,
+                        'start': data.start,
+                        'length': data.length,
+                        'type': 1,
+                        'pic_type': 3,
+                        'order': order
+                    };
+
+                    $.post('getPicList', postData, function (data) {
+                        callback(data);
+                    });
+                },
+                "order": [[1, "desc"]],
+                "columnDefs": [
+                    {
+                        "targets": [0, 2, 3, 4, 5],
+                        orderable: false
+                    },
+                    {
+                        "targets": [0, 1, 2, 3, 4, 5],
+                        className: "text-center"
+                    }
+                ],
+                "fnDrawCallback": function () {
+                    $("#all_checked_threeSmall").prop("checked", false);
+                },
+                "columns": [
+                    {
+                        title: '全选  <input type="checkbox" class="" id="all_checked_threeSmall"/>',
+                        data: 'id',
+                        width: '60px',
+                        render: function (id) {
+                            return "<input type='checkbox' name='picThreeSmallId' class='' value='" + id + "'>";
+                        }
+                    },
+                    {
+                        title: "ID",
+                        data: 'id',
+                        width: '20px'
+                    },
+                    {
+                        title: "图片1",
+                        data: 'pic1_url',
+                        height: '100px',
+                        render: function (data, type, row) {
+                            var str = '<a href="' + data + '" data-lightbox="image-' + row.id + '" data-title=""><img src="' + data + '" alt="" style="max-width: 100px; max-height: 100px;"></a>';
+                            return str;
+                        }
+                    },
+                    {
+                        title: "图片2",
+                        data: 'pic2_url',
+                        height: '100px',
+                        render: function (data, type, row) {
+                            var str = '<a href="' + data + '" data-lightbox="image-' + row.id + '" data-title=""><img src="' + data + '" alt="" style="max-width: 100px; max-height: 100px;"></a>';
+                            return str;
+                        }
+                    },
+                    {
+                        title: "图片3",
+                        data: 'pic3_url',
+                        height: '100px',
+                        render: function (data, type, row) {
+                            var str = '<a href="' + data + '" data-lightbox="image-' + row.id + '" data-title=""><img src="' + data + '" alt="" style="max-width: 100px; max-height: 100px;"></a>';
+                            return str;
+                        }
+                    },
+                    {
+                        title: "操作",
+                        data: 'id',
+                        width: '200px',
+                        render: function (id) {
+                            var str = '';
+                            str += '<button type="button" class="btn btn-default image-edit" data-id="' + id + '"><i class="fa fa-edit"></i> 修改</button> ' + '&nbsp;&nbsp;&nbsp;&nbsp;';
+                            str += '<button type="button" class="btn btn-default image-delete" data-id="' + id + '"><i class="fa fa-trash-o"></i> 删除</button>';
+                            return str;
+                        }
+                    }
+                ],
+                "language": {
+                    "sProcessing": "处理中...",
+                    "sLengthMenu": "显示 _MENU_ 项结果",
+                    "sZeroRecords": "没有匹配结果",
+                    "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix": "",
+                    "sSearch": "搜索:",
+                    "sUrl": "",
+                    "sEmptyTable": "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands": ",",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "上页",
+                        "sNext": "下页",
+                        "sLast": "末页"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+                    }
+                }
+            });
+
+            // 删除三小图
+            $('#threeSmallTable').on('click', '.image-delete', function () {
+                var id = $(this).data('id');
+                $.confirm({
+                    title: '删除确认!',
+                    content: '确认删除这条信息？',
+                    buttons: {
+                        cancel: {
+                            text: '取消',
+                            action: function () {
+                                // close
+                            }
+                        },
+                        confirm: {
+                            text: '确认',
+                            btnClass: 'btn-success',
+                            action: function () {
+                                $.get('delImage', {id: id}, function (data) {
+                                    if (data.code === 200) {
+                                        toastr["success"]("操作成功！");
+                                        threeSmallTable.ajax.reload();
+                                    } else {
+                                        toastr["error"](data.message, "哎呀，出错了");
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+
+            // 三小图全选
+            $('#all_checked_threeSmall').click(function () {
+                $('[name=picThreeSmallId]:checkbox').prop('checked', this.checked);
+            });
+
+            // 删除多个三小图
+            $('#delThreeSmall').click(function () {
+                var a = [];
+                $('input[name="picThreeSmallId"]:checked').each(function () {
+                    a.push($(this).val());
+                });
+
+                if (a.length < 1) {
+                    toastr["warning"]("请选择...");
+                } else {
+                    $.confirm({
+                        title: '删除确认!',
+                        content: '确认删除这些图片？',
+                        buttons: {
+                            cancel: {
+                                text: '取消',
+                                action: function () {
+                                    // close
+                                }
+                            },
+                            confirm: {
+                                text: '确认',
+                                btnClass: 'btn-success',
+                                action: function () {
+                                    $.get('delImages', {ids: a}, function (data) {
+                                        if (data.code === 200) {
+                                            toastr["success"]("操作成功！");
+                                            threeSmallTable.ajax.reload();
+                                        } else {
+                                            toastr["error"](data.message, "哎呀，出错了");
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+
+            // 添加三小图
+            $('#threeSmallAdd').click(function () {
+                $('#modal-threeSmallAdd').modal('show');
+
+                $('#threeSmallFile1').val('');
+                $('#threeSmallFile2').val('');
+                $('#threeSmallFile3').val('');
+            });
+
+            // 修改三小图
+            $('#threeSmallTable').on('click', '.image-edit', function () {
+                var id = $(this).data('id');
+
+                $('#modal-threeSmallEdit').modal('show');
+                $('#flow_threeSmall_id').val(id);
+                $('#threeSmallEditFile1').val('');
+                $('#threeSmallEditFile2').val('');
+                $('#threeSmallEditFile3').val('');
+            });
+
+            // 三小图添加验证
+            $('#threeSmallAddForm').validate({
+                ignore: "",
+                submitHandler: function (form) {
+                    jQuery(form).ajaxSubmit({
+                        type: "POST",
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                $('#modal-threeSmallAdd').modal('hide');
+                                toastr["success"]("操作成功！");
+                                threeSmallTable.ajax.reload();
+                            } else {
+                                toastr["error"](data.message, "哎呀，出错了");
+                            }
+                        }
+                    });
+                },
+                rules: {
+                    inputFile1: {
+                        required: true,
+                    },
+                    inputFile2: {
+                        required: true,
+                    },
+                    inputFile3: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    inputFile1: {
+                        required: "这是必填字段",
+                    },
+                    inputFile2: {
+                        required: "这是必填字段",
+                    },
+                    inputFile3: {
+                        required: "这是必填字段",
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    error.appendTo(element.next("span"));
+                },
+                highlight: function (element) {
+                    $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
+                    $('#help-block').html("");
+                },
+                unhighlight: function (element) {
+                    $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
+                    $('#help-block').html("");
+                }
+            });
+
+            // 三小图
+            $('#threeSmallEditForm').validate({
+                ignore: "",
+                submitHandler: function (form) {
+                    jQuery(form).ajaxSubmit({
+                        type: "POST",
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                $('#modal-threeSmallEdit').modal('hide');
+                                toastr["success"]("操作成功！");
+                                threeSmallTable.ajax.reload();
+                            } else {
+                                toastr["error"](data.message, "哎呀，出错了");
+                            }
+                        }
+                    });
+                },
+                rules: {},
+                messages: {},
+                errorPlacement: function (error, element) {
+                    error.appendTo(element.next("span"));
+                },
+                highlight: function (element) {
+                    $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
+                    $('#help-block').html("");
+                },
+                unhighlight: function (element) {
+                    $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
+                    $('#help-block').html("");
+                }
+            });
+
+            // 落地页
+            var landingTable = $('#landingTable').DataTable({
+                "searching": false,
+                "autoWidth": false,
+                "processing": true,
+                "serverSide": true,
+                /*"ajax": {
+                    "url": "getConfig",
+                    "dataStr": "data",
+                },*/
+                "ajax": function (data, callback) {
+                    var columns = data.columns;
+                    var rawCols = [];
+                    var order = [];
+
+                    $.each(columns, function (i, n) {
+                        rawCols.push(n.data);
+                    });
+
+                    $.each(data.order, function (i, n) {
+                        var item = [];
+                        item.push(rawCols[n.column], n.dir);
+                        order.push(item)
+                    });
+
+                    var postData = {
+                        'draw': data.draw,
+                        'start': data.start,
+                        'length': data.length,
+                        'type': 1,
+                        'pic_type': 4,
+                        'order': order
+                    };
+
+                    $.post('getPicList', postData, function (data) {
+                        callback(data);
+                    });
+                },
+                "order": [[1, "desc"]],
+                "columnDefs": [
+                    {
+                        "targets": [0, 2, 3],
+                        orderable: false
+                    },
+                    {
+                        "targets": [0, 1, 2, 3],
+                        className: "text-center"
+                    }
+                ],
+                "fnDrawCallback": function () {
+                    $("#all_checked_landing").prop("checked", false);
+                },
+                "columns": [
+                    {
+                        title: '全选  <input type="checkbox" class="" id="all_checked_landing"/>',
+                        data: 'id',
+                        width: '60px',
+                        render: function (id) {
+                            return "<input type='checkbox' name='picLandingId' class='' value='" + id + "'>";
+                        }
+                    },
+                    {
+                        title: "ID",
+                        data: 'id',
+                        width: '20px'
+                    },
+                    {
+                        title: "图片",
+                        data: 'pic1_url',
+                        height: '100px',
+                        render: function (data, type, row) {
+                            var str = '<a href="' + data + '" data-lightbox="image-' + row.id + '" data-title=""><img src="' + data + '" alt="" style="max-width: 100px; max-height: 100px;"></a>';
+                            return str;
+                        }
+                    },
+                    {
+                        title: "操作",
+                        data: 'id',
+                        width: '200px',
+                        render: function (id) {
+                            var str = '';
+                            str += '<button type="button" class="btn btn-default image-edit" data-id="' + id + '"><i class="fa fa-edit"></i> 修改</button> ' + '&nbsp;&nbsp;&nbsp;&nbsp;';
+                            str += '<button type="button" class="btn btn-default image-delete" data-id="' + id + '"><i class="fa fa-trash-o"></i> 删除</button>';
+                            return str;
+                        }
+                    }
+                ],
+                "language": {
+                    "sProcessing": "处理中...",
+                    "sLengthMenu": "显示 _MENU_ 项结果",
+                    "sZeroRecords": "没有匹配结果",
+                    "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix": "",
+                    "sSearch": "搜索:",
+                    "sUrl": "",
+                    "sEmptyTable": "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands": ",",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "上页",
+                        "sNext": "下页",
+                        "sLast": "末页"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+                    }
+                }
+            });
+
+            // 删除单个落地页图片
+            $('#landingTable').on('click', '.image-delete', function () {
+                var id = $(this).data('id');
+                $.confirm({
+                    title: '删除确认!',
+                    content: '确认删除这条信息？',
+                    buttons: {
+                        cancel: {
+                            text: '取消',
+                            action: function () {
+                                // close
+                            }
+                        },
+                        confirm: {
+                            text: '确认',
+                            btnClass: 'btn-success',
+                            action: function () {
+                                $.get('delImage', {id: id}, function (data) {
+                                    if (data.code === 200) {
+                                        toastr["success"]("操作成功！");
+                                        landingTable.ajax.reload();
+                                    } else {
+                                        toastr["error"](data.message, "哎呀，出错了");
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+
+            // 落地页图库全选
+            $('#all_checked_landing').click(function () {
+                $('[name=picLandingId]:checkbox').prop('checked', this.checked);
+            });
+
+            // 删除多个落地页图片
+            $('#delLanding').click(function () {
+                var a = [];
+                $('input[name="picLandingId"]:checked').each(function () {
+                    a.push($(this).val());
+                });
+
+                if (a.length < 1) {
+                    toastr["warning"]("请选择...");
+                } else {
+                    $.confirm({
+                        title: '删除确认!',
+                        content: '确认删除这些图片？',
+                        buttons: {
+                            cancel: {
+                                text: '取消',
+                                action: function () {
+                                    // close
+                                }
+                            },
+                            confirm: {
+                                text: '确认',
+                                btnClass: 'btn-success',
+                                action: function () {
+                                    $.get('delImages', {ids: a}, function (data) {
+                                        if (data.code === 200) {
+                                            toastr["success"]("操作成功！");
+                                            landingTable.ajax.reload();
+                                        } else {
+                                            toastr["error"](data.message, "哎呀，出错了");
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+
+            // 添加落地页图片
+            $('#landingAdd').click(function () {
+                $('#modal-landing').modal('show');
+                $('#flow_landing_id').val(0);
+                $('#landing_type').val(4);
+                $('#landingFile').val('');
+                $('#landingModalTitle').html('添加');
+            });
+
+            // 修改落地页图片
+            $('#landingTable').on('click', '.image-edit', function () {
+                var id = $(this).data('id');
+
+                $('#modal-landing').modal('show');
+                $('#flow_landing_id').val(id);
+                $('#landing_type').val(4);
+                $('#landingFile').val('');
+                $('#landingModalTitle').html('修改');
+            });
+
+            // 落地页添加验证
+            $('#landingForm').validate({
+                ignore: "",
+                submitHandler: function (form) {
+                    jQuery(form).ajaxSubmit({
+                        type: "POST",
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                $('#modal-landing').modal('hide');
+                                toastr["success"]("操作成功！");
+                                landingTable.ajax.reload();
+                            } else {
+                                toastr["error"](data.message, "哎呀，出错了");
+                            }
+                        }
+                    });
+                },
+                rules: {
+                    inputFile: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    inputFile: {
+                        required: "这是必填字段",
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    error.appendTo(element.next("span"));
+                },
+                highlight: function (element) {
+                    $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
+                    $('#help-block').html("");
+                },
+                unhighlight: function (element) {
+                    $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
+                    $('#help-block').html("");
+                }
+            });
+
+            // 单超大图
+            var singleBigXTable = $('#singleBigXTable').DataTable({
+                "searching": false,
+                "autoWidth": false,
+                "processing": true,
+                "serverSide": true,
+                /*"ajax": {
+                    "url": "getConfig",
+                    "dataStr": "data",
+                },*/
+                "ajax": function (data, callback) {
+                    var columns = data.columns;
+                    var rawCols = [];
+                    var order = [];
+
+                    $.each(columns, function (i, n) {
+                        rawCols.push(n.data);
+                    });
+
+                    $.each(data.order, function (i, n) {
+                        var item = [];
+                        item.push(rawCols[n.column], n.dir);
+                        order.push(item)
+                    });
+
+                    var postData = {
+                        'draw': data.draw,
+                        'start': data.start,
+                        'length': data.length,
+                        'type': 1,
+                        'pic_type': 5,
+                        'order': order
+                    };
+
+                    $.post('getPicList', postData, function (data) {
+                        callback(data);
+                    });
+                },
+                "order": [[1, "desc"]],
+                "columnDefs": [
+                    {
+                        "targets": [0, 2, 3],
+                        orderable: false
+                    },
+                    {
+                        "targets": [0, 1, 2, 3],
+                        className: "text-center"
+                    }
+                ],
+                "fnDrawCallback": function () {
+                    $("#all_checked_big_x").prop("checked", false);
+                },
+                "columns": [
+                    {
+                        title: '全选  <input type="checkbox" class="" id="all_checked_big_x"/>',
+                        data: 'id',
+                        width: '60px',
+                        render: function (id) {
+                            return "<input type='checkbox' name='picBigXId' class='' value='" + id + "'>";
+                        }
+                    },
+                    {
+                        title: "ID",
+                        data: 'id',
+                        width: '20px'
+                    },
+                    {
+                        title: "图片",
+                        data: 'pic1_url',
+                        height: '100px',
+                        render: function (data, type, row) {
+                            var str = '<a href="' + data + '" data-lightbox="image-' + row.id + '" data-title=""><img src="' + data + '" alt="" style="max-width: 100px; max-height: 100px;"></a>';
+                            return str;
+                        }
+                    },
+                    {
+                        title: "操作",
+                        data: 'id',
+                        width: '200px',
+                        render: function (id) {
+                            var str = '';
+                            str += '<button type="button" class="btn btn-default image-edit" data-id="' + id + '"><i class="fa fa-edit"></i> 修改</button> ' + '&nbsp;&nbsp;&nbsp;&nbsp;';
+                            str += '<button type="button" class="btn btn-default image-delete" data-id="' + id + '"><i class="fa fa-trash-o"></i> 删除</button>';
+                            return str;
+                        }
+                    }
+                ],
+                "language": {
+                    "sProcessing": "处理中...",
+                    "sLengthMenu": "显示 _MENU_ 项结果",
+                    "sZeroRecords": "没有匹配结果",
+                    "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix": "",
+                    "sSearch": "搜索:",
+                    "sUrl": "",
+                    "sEmptyTable": "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands": ",",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "上页",
+                        "sNext": "下页",
+                        "sLast": "末页"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+                    }
+                }
+            });
+
+            // 添加单大图
+            $('#singleBigXAdd').click(function () {
+                $('#modal-addSingleX').modal('show');
+                $('#flow_single_x_id').val(0);
+                $('#singleBigXFile').val('');
+                $('#addSingleXModalTitle').html('添加');
+            });
+
+            // 单超大图添加验证
+            $('#addSingleXForm').validate({
+                ignore: "",
+                submitHandler: function (form) {
+                    jQuery(form).ajaxSubmit({
+                        type: "POST",
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.code === 200) {
+                                $('#modal-addSingleX').modal('hide');
+                                toastr["success"]("操作成功！");
+                                singleBigXTable.ajax.reload();
+                            } else {
+                                toastr["error"](data.message, "哎呀，出错了");
+                            }
+                        }
+                    });
+                },
+                rules: {
+                    inputFile: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    inputFile: {
+                        required: "这是必填字段",
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    error.appendTo(element.next("span"));
+                },
+                highlight: function (element) {
+                    $(element).parents(".form-group").addClass("has-error").removeClass("has-success");
+                    $('#help-block').html("");
+                },
+                unhighlight: function (element) {
+                    $(element).parents(".form-group").addClass("has-success").removeClass("has-error");
+                    $('#help-block').html("");
+                }
+            });
+
+            // 修改单超大图
+            $('#singleBigXTable').on('click', '.image-edit', function () {
+                var id = $(this).data('id');
+
+                $('#modal-addSingleX').modal('show');
+                $('#flow_single_x_id').val(id);
+                $('#singleBigXFile').val('');
+                $('#addSingleXModalTitle').html('修改');
+            });
+
+            // 删除单大图
+            $('#singleBigXTable').on('click', '.image-delete', function () {
+                var id = $(this).data('id');
+                $.confirm({
+                    title: '删除确认!',
+                    content: '确认删除这条信息？',
+                    buttons: {
+                        cancel: {
+                            text: '取消',
+                            action: function () {
+                                // close
+                            }
+                        },
+                        confirm: {
+                            text: '确认',
+                            btnClass: 'btn-success',
+                            action: function () {
+                                $.get('delImage', {id: id}, function (data) {
+                                    if (data.code === 200) {
+                                        toastr["success"]("操作成功！");
+                                        singleBigXTable.ajax.reload();
+                                    } else {
+                                        toastr["error"](data.message, "哎呀，出错了");
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+
+            // 单大图库全选
+            $('#all_checked_big_x').click(function () {
+                $('[name=picBigXId]:checkbox').prop('checked', this.checked);
+            });
+
+            // 删除多个图
+            $('#delSingleBigXs').click(function () {
+                var a = [];
+                $('input[name="picBigXId"]:checked').each(function () {
+                    a.push($(this).val());
+                });
+
+                if (a.length < 1) {
+                    toastr["warning"]("请选择...");
+                } else {
+                    $.confirm({
+                        title: '删除确认!',
+                        content: '确认删除这些图片？',
+                        buttons: {
+                            cancel: {
+                                text: '取消',
+                                action: function () {
+                                    // close
+                                }
+                            },
+                            confirm: {
+                                text: '确认',
+                                btnClass: 'btn-success',
+                                action: function () {
+                                    $.get('delImages', {ids: a}, function (data) {
+                                        if (data.code === 200) {
+                                            toastr["success"]("操作成功！");
+                                            singleBigXTable.ajax.reload();
+                                        } else {
+                                            toastr["error"](data.message, "哎呀，出错了");
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}
